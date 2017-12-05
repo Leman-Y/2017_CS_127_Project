@@ -2,7 +2,7 @@
 
 
 Rules of Scrabble:
-* 2 to 4 players
+* 2 to 4 players (finished)
 * Of the first draws of each player, earliest (closest to A) goes first.
 * Each player then draws 6 more tiles (7 in total including first one)
 --------------------------------------------------------------------------------------------------- easy part[a] ^^^
