@@ -17,6 +17,9 @@ What we need to do:
 
 players = {}
 num_p = 0
+
+alpha = "abcdefghijklmnopqrstuvwxyz"
+
 letter_score = {"#" : "0",
                 "aeioulnrst":"1", 
                 "dg":"2", 
@@ -25,6 +28,7 @@ letter_score = {"#" : "0",
                 "k":"5",
                 "jx":"8",
                 "qz":"10"}
+
 basket_of_letters = ["a", 9, "b", 2, "c", 2, "d", 4, "e", 12
                     "f", 2, "g", 3, "h", 2, "i", 9, "j", 1,
                     "k", 1, "l", 4, "m", 2, "n", 6, "o", 8,
