@@ -40,6 +40,10 @@ basket_of_letters = ["a", 9, "b", 2, "c", 2, "d", 4, "e", 12,
                     "u", 4, "v", 2, "w", 2, "x", 1, "y", 2, 
                     "z", 1, "#", 2 ]
 # '#'=Blank
+TRIPLE_WORD_SCORE = ((0,0), (7, 0), (14,0), (0, 7), (14, 7), (0, 14), (7, 14), (14,14))
+DOUBLE_WORD_SCORE = ((1,1), (2,2), (3,3), (4,4), (1, 13), (2, 12), (3, 11), (4, 10), (13, 1), (12, 2), (11, 3), (10, 4), (13,13), (12, 12), (11,11), (10,10), (7,7))
+TRIPLE_LETTER_SCORE = ((1,5), (1, 9), (5,1), (5,5), (5,9), (5,13), (9,1), (9,5), (9,9), (9,13), (13, 5), (13,9))
+DOUBLE_LETTER_SCORE = ((0, 3), (0,11), (2,6), (2,8), (3,0), (3,7), (3,14), (6,2), (6,6), (6,8), (6,12), (7,3), (7,11), (8,2), (8,6), (8,8), (8, 12), (11,0), (11,7), (11,14), (12,6), (12,8), (14, 3), (14, 11))
 
 
 def ask_player():
@@ -69,7 +73,6 @@ def randomtile(basket_of_letters):
     -Random character tile
     '''
     newbasket='' #Empty string
-    
     for i in range(len(basket_of_letters)-1):  #Index of each position 
         if type(basket_of_letters[i])==int:    #If the type of value is a int
             pass                               #Pass and move to else
@@ -77,15 +80,10 @@ def randomtile(basket_of_letters):
             newbasket+=(basket_of_letters[i]*basket_of_letters[i+1]) #Ex. Add the '##' from #,2 to the empty string
     
     newtile=random.choice(newbasket) #Randomly choose a character from the newbasket
-    
-    
     return newtile  #Return a random tile
 
     
-TRIPLE_WORD_SCORE = ((0,0), (7, 0), (14,0), (0, 7), (14, 7), (0, 14), (7, 14), (14,14))
-DOUBLE_WORD_SCORE = ((1,1), (2,2), (3,3), (4,4), (1, 13), (2, 12), (3, 11), (4, 10), (13, 1), (12, 2), (11, 3), (10, 4), (13,13), (12, 12), (11,11), (10,10), (7,7))
-TRIPLE_LETTER_SCORE = ((1,5), (1, 9), (5,1), (5,5), (5,9), (5,13), (9,1), (9,5), (9,9), (9,13), (13, 5), (13,9))
-DOUBLE_LETTER_SCORE = ((0, 3), (0,11), (2,6), (2,8), (3,0), (3,7), (3,14), (6,2), (6,6), (6,8), (6,12), (7,3), (7,11), (8,2), (8,6), (8,8), (8, 12), (11,0), (11,7), (11,14), (12,6), (12,8), (14, 3), (14, 11))
+
 
 
 def make_scrabble_board():
@@ -96,24 +94,25 @@ def make_scrabble_board():
     board=[]
     
     for i in range(16):
-        line=[]
-        if (i != 0):
-            if (i < 10):
-                hello = str(i) + " "
+        line=[] # each line of the board
+        if (i != 0): # prints numbers on y axis of board
+            if (i < 10): # helps align the single and double digit numbers ie 9 vs 10
+                hello = str(i) + " " 
                 line.append(hello)
             else:
                 line.append(str(i))
-        for j in range(16):
-            if (i ==0 and j ==0):
-                line.append('_ ')
-            elif (i == 0 and  j < 17):
+        for j in range(16): 
+            if (i ==0 and j ==0): # (0,0) is a " "
+                line.append('  ')
+            elif (i == 0 and  j < 17): #add letters to x axis
                 line.append(alpha[j-1])
-            elif (j < 15):
+            elif (j < 15): #makes resit of board
                 line.append('_')
         board.append(line)
 
+    # adds the cap and lower letter to board vvv
     for r,c in TRIPLE_WORD_SCORE:
-        board[r+1][c+1] = 'T'
+        board[r+1][c+1] = 'T' 
 
     for r,c in DOUBLE_WORD_SCORE:
         board[r+1][c+1] = 'D'
