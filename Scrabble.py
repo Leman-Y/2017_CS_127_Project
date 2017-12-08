@@ -1,3 +1,4 @@
+import random
 '''
 Scrabble Project Outline
 ----------------------
@@ -57,13 +58,29 @@ def ask_player():
 
 ask_player()
 
-def randomtile():
+def randomtile(basket_of_letters):
     '''
+    -use random.choice works with strings and lists
+    -use the basket and multiple i and i+1 together to get a,2 to 'aa' then random.choice to get a random character
+
     Input:
+    -Basket of letters
     Output:
-    -use random.choice
-    -
+    -Random character tile
     '''
+    newbasket='' #Empty string
+    
+    for i in range(len(basket_of_letters)-1):  #Index of each position 
+        if type(basket_of_letters[i])==int:    #If the type of value is a int
+            pass                               #Pass and move to else
+        else: 
+            newbasket+=(basket_of_letters[i]*basket_of_letters[i+1]) #Ex. Add the '##' from #,2 to the empty string
+    
+    newtile=random.choice(newbasket) #Randomly choose a character from the newbasket
+    
+    
+    return newtile  #Return a random tile
+
     
 TRIPLE_WORD_SCORE = ((0,0), (7, 0), (14,0), (0, 7), (14, 7), (0, 14), (7, 14), (14,14))
 DOUBLE_WORD_SCORE = ((1,1), (2,2), (3,3), (4,4), (1, 13), (2, 12), (3, 11), (4, 10), (13, 1), (12, 2), (11, 3), (10, 4), (13,13), (12, 12), (11,11), (10,10), (7,7))
