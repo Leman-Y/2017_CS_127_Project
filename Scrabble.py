@@ -1,4 +1,5 @@
 import random
+
 '''
 Scrabble Project Outline
 ----------------------
@@ -21,7 +22,6 @@ What we need to do:
 
 players = {}
 num_p = 0
-letter_count = 100
 
 alpha = "abcdefghijklmnopqrstuvwxyz#"
 
@@ -45,9 +45,8 @@ TRIPLE_WORD_SCORE = ((0,0), (7, 0), (14,0), (0, 7), (14, 7), (0, 14), (7, 14), (
 DOUBLE_WORD_SCORE = ((1,1), (2,2), (3,3), (4,4), (1, 13), (2, 12), (3, 11), (4, 10), (13, 1), (12, 2), (11, 3), (10, 4), (13,13), (12, 12), (11,11), (10,10), (7,7))
 TRIPLE_LETTER_SCORE = ((1,5), (1, 9), (5,1), (5,5), (5,9), (5,13), (9,1), (9,5), (9,9), (9,13), (13, 5), (13,9))
 DOUBLE_LETTER_SCORE = ((0, 3), (0,11), (2,6), (2,8), (3,0), (3,7), (3,14), (6,2), (6,6), (6,8), (6,12), (7,3), (7,11), (8,2), (8,6), (8,8), (8, 12), (11,0), (11,7), (11,14), (12,6), (12,8), (14, 3), (14, 11))
-'''
--------------------------------------------------------------------------------------------------------------------
-'''
+
+
 def ask_player():
     '''
         Ask how many players are playing
@@ -61,6 +60,8 @@ def ask_player():
     for i in range(int(num_p)):
         players.setdefault(i+1,[])
     print(players)
+
+ask_player()
 
 def randomtile(basket_of_letters):
     '''
@@ -81,14 +82,21 @@ def randomtile(basket_of_letters):
         if type(basket_of_letters[i])==int:    #If the type of value is a int
             pass                               #Pass and move to else
         else: 
-            newbasket+=(basket_of_letters[i]*basket_of_letters[i+1]) #Ex. Add the '##' from #,2 to the empty string    
+            newbasket+=(basket_of_letters[i]*basket_of_letters[i+1]) #Ex. Add the '##' from #,2 to the empty string\
             basket_of_letters[i+1]=basket_of_letters[i+1]-1
+
+    
     newtile=random.choice(newbasket) #Randomly choose a character from the newbasket
+
     #global letter                        #Call the letter variable outside the function
     #letter+=newtile                      #Make letter turn into the newtile
         
 
     return newtile  #Return a random tile
+
+    
+
+
 
 def make_scrabble_board():
     '''
@@ -132,6 +140,8 @@ def make_scrabble_board():
 def print_board(b):  #Organizes the lines so it looks like a board
     for line in b:
         print (' '.join(line))
+
+print_board(make_scrabble_board())
 
 def score(w):
   '''
@@ -204,23 +214,5 @@ def add_word_down(board,word,r,c):
             
         if board[r+count][c]=='_': #If square is _
             sumofscore+=score(word[count])
-        board[r+count][c]=word[count]
-        
-def check_hands(): # checks hands of each player
-    global players
-    not_empty = []
-    for key,value in d.items():
-        if len(value[1]) > 0: # if their hand is not empty then add it to a list of players
-            not_empty.append(key) 
-    return not_empty
-        
-def main():
-    ask_player()
-    not_empty = check_hands()
-    while(letter_count > 0 or len(not_empty) > 0):
-        for p in not_empty:
-            word = input("What word do you want to put?") 
-    
-
-print_board(make_scrabble_board())
-main()
+            
+        board[r+count][c]=word[count] 
