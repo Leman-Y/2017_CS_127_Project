@@ -1,4 +1,5 @@
 import random
+import enchant
 '''
 Scrabble Project Outline
 ----------------------
@@ -219,8 +220,7 @@ def main():
     not_empty = check_hands()
     while(letter_count > 0 or len(not_empty) > 0):
         for p in not_empty:
-            word = input("What word do you want to put?") 
-    
+            word = input("What do you want to do? You can place a word, exchange, or pass? ") # can exchange, place, pass
 
 print_board(make_scrabble_board())
 main()
