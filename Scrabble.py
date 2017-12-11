@@ -57,7 +57,7 @@ def ask_player():
     while (num_p < 1 or num_p > 4):
         num_p = int(input("How many players will there be? "))
     for i in range(int(num_p)):
-        players.setdefault(i+1,0)
+        players.setdefault(i+1,[])
     print(players)
 
 ask_player()
@@ -106,7 +106,7 @@ def make_scrabble_board():
                 line.append('  ')
             elif (i == 0 and  j < 17): #add letters to x axis
                 line.append(alpha[j-1])
-            elif (j < 15): #makes resit of board
+            elif (j < 15): #makes rest of board
                 line.append('_')
         board.append(line)
 
