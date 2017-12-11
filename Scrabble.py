@@ -81,16 +81,9 @@ def randomtile(basket_of_letters):
         if type(basket_of_letters[i])==int:    #If the type of value is a int
             pass                               #Pass and move to else
         else: 
-<<<<<<< HEAD
             newbasket+=(basket_of_letters[i]*basket_of_letters[i+1]) #Ex. Add the '##' from #,2 to the empty string    
-=======
-            newbasket+=(basket_of_letters[i]*basket_of_letters[i+1]) #Ex. Add the '##' from #,2 to the empty string\
             basket_of_letters[i+1]=basket_of_letters[i+1]-1
-
-    
->>>>>>> 0e97beb8bb7e1a736305aeaa3f2202fe58094537
     newtile=random.choice(newbasket) #Randomly choose a character from the newbasket
-
     #global letter                        #Call the letter variable outside the function
     #letter+=newtile                      #Make letter turn into the newtile
         
