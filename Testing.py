@@ -10,7 +10,7 @@ basket_of_letters = ["a", 9, "b", 2, "c", 2, "d", 4, "e", 12,
                     "p", 2, "q", 1, "r", 6, "s", 4, "t", 6, 
                     "u", 4, "v", 2, "w", 2, "x", 1, "y", 2, 
                     "z", 1, "#", 2 ]
-
+letter = ''
 print('\n--------------------------\n')
 
 def randomtile(basket_of_letters):
@@ -31,14 +31,32 @@ def randomtile(basket_of_letters):
             pass
         else:
             newbasket+=(basket_of_letters[i]*basket_of_letters[i+1])
+            basket_of_letters[i+1]=basket_of_letters[i+1]-1
     
     newtile=random.choice(newbasket)
+    #global letter
+    #letter=newtile
+    #for index, value in enumerate(basket_of_letters)
     
     
     return newtile
 
-    
+'''
+print("Which tile did you get?")
+tile=input()
+print(tile)
+'''
+
 print(randomtile(basket_of_letters))
+#print(letter)
+
+print(basket_of_letters.index(letter))
+
+indexofnumber=basket_of_letters.index(letter)
+basket_of_letters[indexofnumber+1]=basket_of_letters[indexofnumber+1]-1
+
+print(basket_of_letters)
+
 
 
 
