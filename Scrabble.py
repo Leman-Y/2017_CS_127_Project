@@ -64,8 +64,12 @@ def ask_player():
 
 def randomtile(basket_of_letters):
     '''
+    12/8/17, Gives a random tile from the basket
     -use random.choice works with strings and lists
     -use the basket and multiple i and i+1 together to get a,2 to 'aa' then random.choice to get a random character
+    Problem:
+    Remove a tile from basket_of_letters
+    
 
     Input:
     -Basket of letters
@@ -77,8 +81,20 @@ def randomtile(basket_of_letters):
         if type(basket_of_letters[i])==int:    #If the type of value is a int
             pass                               #Pass and move to else
         else: 
+<<<<<<< HEAD
             newbasket+=(basket_of_letters[i]*basket_of_letters[i+1]) #Ex. Add the '##' from #,2 to the empty string    
+=======
+            newbasket+=(basket_of_letters[i]*basket_of_letters[i+1]) #Ex. Add the '##' from #,2 to the empty string\
+            basket_of_letters[i+1]=basket_of_letters[i+1]-1
+
+    
+>>>>>>> 0e97beb8bb7e1a736305aeaa3f2202fe58094537
     newtile=random.choice(newbasket) #Randomly choose a character from the newbasket
+
+    #global letter                        #Call the letter variable outside the function
+    #letter+=newtile                      #Make letter turn into the newtile
+        
+
     return newtile  #Return a random tile
 
 def make_scrabble_board():
