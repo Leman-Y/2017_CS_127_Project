@@ -1,9 +1,5 @@
 import random
-<<<<<<< HEAD
 import enchant
-=======
-
->>>>>>> 591be6d8da74b8237c44079e70fac4e25a4717ab
 '''
 Scrabble Project Outline
 ----------------------
@@ -26,7 +22,7 @@ What we need to do:
 
 players = {}
 num_p = 0
-
+letter_count = 100
 alpha = "abcdefghijklmnopqrstuvwxyz#"
 
 letter_score = {"#" : "0",
@@ -62,10 +58,8 @@ def ask_player():
     while (num_p < 1 or num_p > 4):
         num_p = int(input("How many players will there be? "))
     for i in range(int(num_p)):
-        players.setdefault(i+1,[])
+        players.setdefault(i+1,[0,""])
     print(players)
-
-ask_player()
 
 def randomtile(basket_of_letters):
     '''
@@ -88,16 +82,9 @@ def randomtile(basket_of_letters):
         else: 
             newbasket+=(basket_of_letters[i]*basket_of_letters[i+1]) #Ex. Add the '##' from #,2 to the empty string\
             basket_of_letters[i+1]=basket_of_letters[i+1]-1
-
-    
+    print(newbasket)
     newtile=random.choice(newbasket) #Randomly choose a character from the newbasket
-
-    #global letter                        #Call the letter variable outside the function
-    #letter+=newtile                      #Make letter turn into the newtile
-        
-
     return newtile  #Return a random tile
-
     
 
 
@@ -144,8 +131,6 @@ def make_scrabble_board():
 def print_board(b):  #Organizes the lines so it looks like a board
     for line in b:
         print (' '.join(line))
-
-print_board(make_scrabble_board())
 
 def score(w):
   '''
@@ -218,27 +203,45 @@ def add_word_down(board,word,r,c):
             
         if board[r+count][c]=='_': #If square is _
             sumofscore+=score(word[count])
-<<<<<<< HEAD
         board[r+count][c]=word[count]
         
 def check_hands(): # checks hands of each player
     global players
     not_empty = []
-    for key,value in d.items():
+    for key,value in players.items():
         if len(value[1]) > 0: # if their hand is not empty then add it to a list of players
             not_empty.append(key) 
     return not_empty
-        
+
+def hand_out(): # hands out tiles initial hand 
+    for key, value in players.items():
+        i = 6
+        while (i > 0):
+            tile = randomtile(basket_of_letters)
+            value[1] += tile
+            i = i - 1
+        print(value[1])
+            
 def main():
+    print(basket_of_letters)
     ask_player()
+    hand_out()
     not_empty = check_hands()
-    while(letter_count > 0 or len(not_empty) > 0):
-        for p in not_empty:
-            word = input("What do you want to do? You can place a word, exchange, or pass? ") # can exchange, place, pass
+    print(players)
+    while(letter_count > 0 or len(not_empty) > 0): # condition to keep playing
+        for p in not_empty: # can exchange, place, pass
+            word = ""
+            while (len(word) <= 0):
+                word = input("What do you want to do? You can place a word, exchange, or pass? (type 'place', 'exchange', 'pass') ") 
+                word = word.lower()
+                if (word == "place"):
+                    print("place")
+                elif (word == "exchange"):
+                    print("exchange")
+                elif (word == "pass"):
+                    print("pass")
+                else:
+                    word = ""
 
 print_board(make_scrabble_board())
 main()
-=======
-            
-        board[r+count][c]=word[count] 
->>>>>>> 591be6d8da74b8237c44079e70fac4e25a4717ab
