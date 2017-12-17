@@ -89,7 +89,6 @@ def randomtile(basket_of_letters):
     newtile=random.choice(newbasket)                    #Randomly choose a character from the newbasket
     index=basket_of_letters.index(newtile)              #Index of newtile in original basket 
     basket_of_letters[index+1]=basket_of_letters[index+1]-1       #Change the value of how many of the random letters there are -1.
-     
     return newtile  #Return a random tile
     
 
@@ -227,8 +226,22 @@ def hand_out(): # hands out tiles initial hand
             value[1] += tile
             i = i - 1
             
+            
+def order_players(): #order the players
+    list_of_first_letters = []
+    for key, value in players.items():
+        first_let = randomtile(basket_of_letters)
+        list_of_first_letters.append(first_let) # adds drawn letter
+        list_of_first_letters.append(key) # adds player # it belongs to
+        print("Player " + str(key) + " your first letter is " + first_let)
+        print(list_of_first_letters)
+        # so after this you have to check which one is closer to the letter a
+        
+        
+
 def main():
     ask_player()
+    order_players()
     hand_out()
     not_empty = check_hands()
     while(letter_count > 0 or len(not_empty) > 0): # condition to keep playing
