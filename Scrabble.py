@@ -85,9 +85,12 @@ def randomtile(basket_of_letters):
             pass                               #Pass and move to else
         else: 
             newbasket+=(basket_of_letters[i]*basket_of_letters[i+1]) #Ex. Add the '##' from #,2 to the empty string\
-            basket_of_letters[i+1]=basket_of_letters[i+1]-1
-    print(newbasket)
-    newtile=random.choice(newbasket) #Randomly choose a character from the newbasket
+            
+    #print(newbasket)
+    newtile=random.choice(newbasket)                    #Randomly choose a character from the newbasket
+    index=basket_of_letters.index(newtile)              #Index of newtile in original basket 
+    basket_of_letters[index+1]=basket_of_letters[index+1]-1       #Change the value of how many of the random letters there are -1.
+     
     return newtile  #Return a random tile
     
 

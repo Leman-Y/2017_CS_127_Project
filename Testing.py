@@ -1,9 +1,9 @@
 import random
 import enchant
 
-a='abcd'
+#a='abcd'
 
-print(random.choice(a))
+#print(random.choice(a))
 
 basket_of_letters = ["a", 9, "b", 2, "c", 2, "d", 4, "e", 12, 
                     "f", 2, "g", 3, "h", 2, "i", 9, "j", 1,
@@ -32,9 +32,15 @@ def randomtile(basket_of_letters):
             pass
         else:
             newbasket+=(basket_of_letters[i]*basket_of_letters[i+1])
-            basket_of_letters[i+1]=basket_of_letters[i+1]-1
+            #basket_of_letters[i+1]=basket_of_letters[i+1]-1
     
     newtile=random.choice(newbasket)
+    index=basket_of_letters.index(newtile)
+    basket_of_letters[index+1]=basket_of_letters[index+1]-1
+    
+    
+    
+    #print(basket_of_letters.index(newtile))
     #global letter
     #letter=newtile
     #for index, value in enumerate(basket_of_letters)
@@ -51,10 +57,10 @@ print(tile)
 print(randomtile(basket_of_letters))
 #print(letter)
 
-print(basket_of_letters.index(letter))
+#print(basket_of_letters.index(letter))
 
-indexofnumber=basket_of_letters.index(letter)
-basket_of_letters[indexofnumber+1]=basket_of_letters[indexofnumber+1]-1
+#indexofnumber=basket_of_letters.index(letter)
+#basket_of_letters[indexofnumber+1]=basket_of_letters[indexofnumber+1]-1
 
 print(basket_of_letters)
 
