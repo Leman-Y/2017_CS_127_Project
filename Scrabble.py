@@ -67,7 +67,6 @@ def ask_player():
         num_p = int(input("How many players will there be? "))
     for i in range(int(num_p)):
         players.setdefault(i+1,[0,""])
-    print(players)
 
 def randomtile(basket_of_letters):
     '''
@@ -231,18 +230,17 @@ def hand_out(): # hands out tiles initial hand
             tile = randomtile(basket_of_letters)
             value[1] += tile
             i = i - 1
-        print(value[1])
             
 def main():
-    print(basket_of_letters)
     ask_player()
     hand_out()
     not_empty = check_hands()
-    print(players)
     while(letter_count > 0 or len(not_empty) > 0): # condition to keep playing
         for p in not_empty: # can exchange, place, pass
+            turn = players[p]
             word = ""
             while (len(word) <= 0):
+                print("The current letters you have in your hand are: " + turn[1])
                 word = input("What do you want to do? You can place a word, exchange, or pass? (type 'place', 'exchange', 'pass') ") 
                 word = word.lower()
                 if (word == "place"):
