@@ -233,14 +233,36 @@ def hand_out(): # hands out tiles initial hand
             
 def order_players(): #order the players
     list_of_first_letters = []
+    listofletters=[] #Empty list for letters
     for key, value in players.items():
         first_let = randomtile(basket_of_letters)
         list_of_first_letters.append(first_let) # adds drawn letter
+        listofletters.append(first_let)
+
         list_of_first_letters.append(key) # adds player # it belongs to
         print("Player " + str(key) + " your first letter is " + first_let)
         print(list_of_first_letters)
         # so after this you have to check which one is closer to the letter a
-        
+        #print(list_of_first_letters.sort())                    Can't sort letters and numbers when they are together
+ 
+    
+    x=closest_to_a(listofletters)                           #Use function closest_to_a to find first player
+    y=(listofletters[x])                                   #Char closest to a
+    z=list_of_first_letters.index(y)                        #Find where the letter closest to a is in the list_of_first_letters
+    print(y)
+    print(z)
+    
+
+def closest_to_a(list):
+    l=[]
+    for item in list:
+        if item=='#':                         #Whoever gets blank gets to go first
+            return '#'
+        l.append(abs(ord('a')-ord(item)))      #finds the difference of each letter from a
+    
+    return l.index(min(l))                     #Give the minimum value
+
+
         
 
 def main():
