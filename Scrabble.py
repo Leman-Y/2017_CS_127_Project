@@ -1,6 +1,10 @@
 import random
 import enchant
 '''
+DOWNLOADS NEEDED IN ORDER TO RUN:
+pip install pyenchant
+
+
 Scrabble Project Outline
 ----------------------
 
