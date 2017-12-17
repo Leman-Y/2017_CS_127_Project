@@ -22,6 +22,10 @@ What we need to do:
 -Each word will go through a dictionary library to see if it is part of the english dictionary.
 -We need to add the 1-15 y-axis and a-z for the top
 -Fix score function to be dictionary
+
+-If we need to tell the players how many tiles are left in the bag?
+-Ask players if they want the word right or down
+
 '''
 
 players = {}
@@ -252,3 +256,14 @@ def main():
 
 print_board(make_scrabble_board())
 main()
+
+
+'''
+According to the official rules of Scrabble, the game ends when a player uses all of his tiles and no more tiles are available to draw.
+That player earns the sum of the points on all of the tiles remaining on all of his opponents' racks.
+The other players subtract from their point total the sum of the points on the tiles remaining on their individual rack.
+
+A different rule is used in National Scrabble Association tournaments and club play.
+There, the player who ends the game earns double the points on all of the tiles remaining on all of his opponents' racks.
+The other players subtract nothing from their total.
+'''
