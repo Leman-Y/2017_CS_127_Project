@@ -234,6 +234,7 @@ def hand_out(): # hands out tiles initial hand
 def order_players(): #order the players
     list_of_first_letters = []
     listofletters=[] #Empty list for letters
+    #listofplayers=[]
     for key, value in players.items():
         first_let = randomtile(basket_of_letters)
         list_of_first_letters.append(first_let) # adds drawn letter
@@ -246,14 +247,13 @@ def order_players(): #order the players
         #print(list_of_first_letters.sort())                    Can't sort letters and numbers when they are together
  
     
-    x=closest_to_a(listofletters)                           #Use function closest_to_a to find first player
-    y=(listofletters[x])                                   #Char closest to a
-    z=list_of_first_letters.index(y)                        #Find where the letter closest to a is in the list_of_first_letters
-    print(y)
-    print(z)
-    
+    x=closest_to_a(listofletters,list_of_first_letters)                           #Use function closest_to_a to find first player
+    print(x)
+    #y=(listofletters[x])                                   #Char closest to a
+    #=list_of_first_letters.index(y)                        #Find where the letter closest to a is in the list_of_first_letters
+  
 
-def closest_to_a(list):
+def closest_to_a(listofletters,list_of_first_letters):
     '''
     Input: List of letters because ().sort does not work for numbers and letters in a list 
     Output: Index of the letter that is closest to a
@@ -261,12 +261,28 @@ def closest_to_a(list):
                 However whoever is the first player u can remove their letter from listofletters so u can find the second player, third, etc
     '''
     l=[]
-    for item in list:
+    x=[]
+    c=[]
+    for item in (listofletters):
         if item=='#':                         #Whoever gets blank gets to go first
             return '#'
         l.append(abs(ord('a')-ord(item)))      #finds the difference of each letter from a
+    l.sort()                                              #Sort the list from lowest to highest
+                                                #chr(#) to turn back to character
     
-    return l.index(min(l))                     #Give the minimum value
+    for item in l:
+        x.append((chr(item+97)))                   #Turn the numbers back to letters
+    #print(l)
+    #print(x)
+    for item in (listofletters):
+        if item=='#':
+            c=['#']+c    
+        
+    for item in x:                                                                       
+        c.append(list_of_first_letters[((list_of_first_letters.index(item))+1)])         #Append the players who go first to last
+        
+    return c                     #Returns order of players from first to last
+    
 
 def exchange(tile):
     '''
