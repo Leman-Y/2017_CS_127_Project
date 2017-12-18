@@ -254,6 +254,12 @@ def order_players(): #order the players
     
 
 def closest_to_a(list):
+    '''
+    Input: List of letters because ().sort does not work for numbers and letters in a list 
+    Output: Index of the letter that is closest to a
+    Problems: Does not give second or third or fourth closest to a
+                However whoever is the first player u can remove their letter from listofletters so u can find the second player, third, etc
+    '''
     l=[]
     for item in list:
         if item=='#':                         #Whoever gets blank gets to go first
@@ -262,7 +268,17 @@ def closest_to_a(list):
     
     return l.index(min(l))                     #Give the minimum value
 
-
+def exchange(tile):
+    '''
+    Exchanges a player's player
+    Input: Tile you want to exchange
+    Output: Random tile
+    '''
+    index=basket_of_letters.index(tile)              #Index of player's tile in basket_of_letters 
+    basket_of_letters[index+1]=basket_of_letters[index+1]+1       #Change the value of how many of the random letters there are -1.
+    
+    return randomtile(basket_of_letters)                #Return a new random tile to the player
+    
         
 
 def main():
