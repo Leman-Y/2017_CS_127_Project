@@ -32,6 +32,7 @@ players = {}
 num_p = 0
 letter_count = 100
 alpha = "abcdefghijklmnopqrstuvwxyz#"
+order_of_the_players = []
 
 letter_score = {"#" : "0",
                 "aeioulnrst":"1", 
@@ -234,21 +235,33 @@ def hand_out(): # hands out tiles initial hand
 def order_players(): #order the players
     list_of_first_letters = []
     listofletters=[] #Empty list for letters
-    #listofplayers=[]
+    letters_drawn = []
+    go = True 
     for key, value in players.items():
-        first_let = randomtile(basket_of_letters)
-        list_of_first_letters.append(first_let) # adds drawn letter
-        listofletters.append(first_let)
-
-        list_of_first_letters.append(key) # adds player # it belongs to
-        print("Player " + str(key) + " your first letter is " + first_let)
-        print(list_of_first_letters)
+        go = True
+        while (go):
+            first_let = randomtile(basket_of_letters)
+            if (first_let in letters_drawn): # checks if letter has been drawn yet
+                index = basket_of_letters.index(first_let)+1
+                print(basket_of_letters.index(first_let))
+                print("hello")
+                basket_of_letters[index+1] = str(basket_of_letters[index+1]+1) #re add the count in basket_of letters_
+            else:
+                letters_drawn.append(first_let)
+                list_of_first_letters.append(first_let) # adds drawn letter
+                listofletters.append(first_let)
+                
+                list_of_first_letters.append(key) # adds player # it belongs to
+                print("Player " + str(key) + " your first letter is " + first_let)
+                go = False
         # so after this you have to check which one is closer to the letter a
         #print(list_of_first_letters.sort())                    Can't sort letters and numbers when they are together
  
     
-    x=closest_to_a(listofletters,list_of_first_letters)                           #Use function closest_to_a to find first player
-    print(x)
+    x=closest_to_a(listofletters,list_of_first_letters) #Use function closest_to_a to find first player
+    for p in x:
+        order_of_the_players.append(p)
+    print("The order of the players is: "+ str(x)+ "\n")
     #y=(listofletters[x])                                   #Char closest to a
     #=list_of_first_letters.index(y)                        #Find where the letter closest to a is in the list_of_first_letters
   
@@ -269,22 +282,18 @@ def closest_to_a(listofletters,list_of_first_letters):
         l.append(abs(ord('a')-ord(item)))      #finds the difference of each letter from a
     l.sort()                                              #Sort the list from lowest to highest
                                                 #chr(#) to turn back to character
-    
     for item in l:
         x.append((chr(item+97)))                   #Turn the numbers back to letters
-    #print(l)
-    #print(x)
     for item in (listofletters):
         if item=='#':
             c=['#']+c    
-        
     for item in x:                                                                       
-        c.append(list_of_first_letters[((list_of_first_letters.index(item))+1)])         #Append the players who go first to last
-        
+        c.append(list_of_first_letters[((list_of_first_letters.index(item))+1)])
+        #Append the players who go first to last
     return c                     #Returns order of players from first to last
     
 
-def exchange(tile):
+def exchange(tile, player_num):
     '''
     Exchanges a player's player
     Input: Tile you want to exchange
@@ -292,9 +301,14 @@ def exchange(tile):
     '''
     index=basket_of_letters.index(tile)              #Index of player's tile in basket_of_letters 
     basket_of_letters[index+1]=basket_of_letters[index+1]+1       #Change the value of how many of the random letters there are -1.
-    
-    return randomtile(basket_of_letters)                #Return a new random tile to the player
-    
+    p = players[player_num]
+    oldstr = p[1]
+    pos = oldstr.index(tile)
+    newstr = oldstr[:pos] + oldstr[pos+1:]
+    p[1] = newstr
+    newtile = randomtile(basket_of_letters)
+    p[1] = p[1] + newtile                #Return a new random tile to the player
+    return newtile
         
 
 def main():
@@ -303,22 +317,32 @@ def main():
     hand_out()
     not_empty = check_hands()
     while(letter_count > 0 or len(not_empty) > 0): # condition to keep playing
-        for p in not_empty: # can exchange, place, pass
-            turn = players[p]
-            word = ""
-            while (len(word) <= 0):
-                print("The current letters you have in your hand are: " + turn[1])
-                word = input("What do you want to do? You can place a word, exchange, or pass? (type 'place', 'exchange', 'pass') ") 
-                word = word.lower()
-                if (word == "place"):
-                    print("place")
-                elif (word == "exchange"):
-                    print("exchange")
-                elif (word == "pass"):
-                    print("pass")
-                else:
-                    word = ""
-
+        for p in order_of_the_players:
+            if (p in not_empty): # can exchange, place, pass
+                turn = players[p]
+                word = ""
+                while (len(word) <= 0):
+                    print("Player " + str(p) + ": The current letters you have in your hand are: " + turn[1])
+                    word = input("What do you want to do? You can place a word, exchange, or pass? (type 'place', 'exchange', 'pass') ") 
+                    word = word.lower()
+                    if (word == "place"):
+                        print("place")
+                    elif (word == "exchange"):
+                        chose = "" # asks for chosen
+                        while (len(chose) <= 0):
+                            chose = input("Player " + str(p) + ": What tile do you want to exchange? ")
+                            if (chose in turn[1]):
+                                newtile = exchange(chose, p)
+                                print("Player " + str(p) + ": you got a letter: " + newtile)
+                            else:
+                                chose = ""
+                                print("That is not a valid letter!")
+                    elif (word == "pass"):
+                        pass
+                    else:
+                        word = ""
+                    print("\n")
+                    
 print_board(make_scrabble_board())
 main()
 
