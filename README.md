@@ -9,7 +9,6 @@
 ##### Project Description: 
 ###### For our project, we made a scrabble game from scratch. By following the some of the rules of Scrabble, we implemented functions and methods to make a somewhat accurate representation of the game.
 ###### The use of dictionaries and lists will be used as the storing and calling of data such as strings and integers will be called frequently.
-###### As for using an external library, we will probably use the PyEnchant to check if the word exists in the english dictionary. 
 ###### We used dictionaries to store information regarding the player. Within the dictionary we used lists to show the score and hand of each player. We also used lists to sort and data collect throughout the project.
 
 ##### Disclaimer:
