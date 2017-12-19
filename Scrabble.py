@@ -369,11 +369,11 @@ def main():
             if (p in not_empty): # can exchange, place, pass
                 turn = players[p]
                 word = ""
-                while (len(word) <= 0):
+                if (len(word) <= 0):
                     print("Player " + str(p) + ": The current letters you have in your hand are: " + turn[1])
-                    word = input("What do you want to do? You can place a word, exchange, or pass? (type 'place', 'exchange', 'pass') ") 
+                    word = input("What do you want to do? You can place a word, exchange, or pass? (type 'place', 'exchange', 'pass') BE CAREFUL OF WHAT YOU CHOSE OR YOU CANNOT UNCHOOSE IT ") 
                     word = word.lower()
-                    if (word == "place"):
+                    while (word == "place"):
                         entered_word = ""
                         row = ""
                         num_row = 0
@@ -381,9 +381,7 @@ def main():
                         num_column = 0
                         align = ""
                         while (len(entered_word) <= 0): 
-                            entered_word = input("What word do you want to place? If you want to stop enter '--' ")
-                            if (entered_word == '--'):
-                                break
+                            entered_word = input("What word do you want to place? ")
                             if (does_contains(entered_word, turn[1])):    
                                 if (isinstance(entered_word, str)):
                                     entered_word.lower()
@@ -393,34 +391,28 @@ def main():
                                 print("You can't make this word")
                                 entered_word = ""
                         while (num_row <= 0):
-                            row = input("Which row number do you want it? If you want to stop enter '--' ")
+                            row = input("Which row number do you want it? ")
                             if (isinstance(row, str)):
-                                if (row == '--'):
-                                    pass
-                                elif (int(row) >= 0 or int(row) <= 16):
+                                if (int(row) >= 0 or int(row) <= 16):
                                     num_row = int(row)
                                 else:
                                     num_row = 0
                         while (len(column) <= 0):
-                            column = input("Which letter column do u want it? If you want to stop enter '--' ")
+                            column = input("Which letter column do u want it? ")
                             if (isinstance(column, str)):
                                 if (len(column) == 1):
                                     column.lower()
-                                elif (column == '--'):
-                                    pass
                                 else:
                                     column = ""
                             else:
                                 column = ""     
                         while (len(align) <= 0):
-                            align = input("Do you want the word across or down? If you want to stop enter '--' ")
+                            align = input("Do you want the word across or down? ")
                             if (isinstance(align, str)):
                                 print('hi')
                                 align.lower()
                                 if (align != 'across' and align != 'down'):
                                     align = ""
-                                elif (align == 'pass'):
-                                    pass
                             else:
                                 align = ""
                         print(entered_word, row, column, align)
@@ -441,33 +433,33 @@ def main():
     
                         
                         
-                    elif (word == "exchange"):
-                        chose = "" # asks for chosen
-                        while (len(chose) <= 0):
-                            chose = input("Player " + str(p) + ": What tile do you want to exchange? ")
-                            chose.lower()
-                            if (chose in turn[1]):
-                                newtile = exchange(chose, p)
-                                print("Player " + str(p) + ": you got a letter: " + newtile)
-                                print("Player " + str(p) + ": your hand is: " + turn[1])
-                                another = ""
-                                while (len(another) <= 0):
-                                    another = input("Is there another word you want to exchange? (Enter 'yes' or 'no') ")
-                                    another.lower()
-                                    if (another =="yes"):
-                                        chose = ""
-                                    elif (another == "no"):
-                                        pass
-                                    else:
-                                        another = ""
-                            else:
+            elif (word == "exchange"):
+                chose = "" # asks for chosen
+                while (len(chose) <= 0):
+                    chose = input("Player " + str(p) + ": What tile do you want to exchange? ")
+                    chose.lower()
+                    if (chose in turn[1]):
+                        newtile = exchange(chose, p)
+                        print("Player " + str(p) + ": you got a letter: " + newtile)
+                        print("Player " + str(p) + ": your hand is: " + turn[1])
+                        another = ""
+                        while (len(another) <= 0):
+                            another = input("Is there another word you want to exchange? (Enter 'yes' or 'no') ")
+                            another.lower()
+                            if (another =="yes"):
                                 chose = ""
-                                print("That is not a valid letter!")
-                    elif (word == "pass"):
-                        pass
+                            elif (another == "no"):
+                                pass
+                            else:
+                                another = ""
                     else:
-                        word = ""
-                    print("\n")
+                        chose = ""
+                        print("That is not a valid letter!")
+            elif (word == "pass"):
+                pass
+            else:
+                word = ""
+            print("\n")
 
 
                     #Scrabble board
