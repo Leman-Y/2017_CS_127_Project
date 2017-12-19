@@ -358,11 +358,11 @@ def main():
                         align = ""
                         while (len(entered_word) <= 0): 
                             entered_word = input("What word do you want to place? If you want to stop enter '--' ")
+                            if (entered_word == '--'):
+                                        pass
                             if (does_contains(entered_word, turn[1])):    
                                 if (isinstance(entered_word, str)):
                                     entered_word.lower()
-                                    if (entered_word == '--'):
-                                        pass
                                 else:
                                     entered_word = ""
                             else:
@@ -395,7 +395,7 @@ def main():
                                 align.lower()
                                 if (align != 'across' and align != 'down'):
                                     align = ""
-                                elif (align == '--'):
+                                elif (align == 'pass'):
                                     pass
                             else:
                                 align = ""
