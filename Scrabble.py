@@ -365,11 +365,12 @@ def main():
                         row = ""
                         num_row = 0
                         column = ""
+                        num_column = 0
                         align = ""
                         while (len(entered_word) <= 0): 
                             entered_word = input("What word do you want to place? If you want to stop enter '--' ")
                             if (entered_word == '--'):
-                                        pass
+                                break
                             if (does_contains(entered_word, turn[1])):    
                                 if (isinstance(entered_word, str)):
                                     entered_word.lower()
