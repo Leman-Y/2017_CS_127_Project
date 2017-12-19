@@ -173,10 +173,29 @@ def placeword(word,row,pos,align):
         add_word_down(board,word,row,pos)
 
 board=make_scrabble_board()
-print_board(board)
+#print_board(board)
 
 #(add_word_across(board,'pay',8,6))
 
-placeword('pay',8,6,'across')
-placeword('ace',8,6,'across')
+#placeword('pay',8,6,'across')
+#placeword('ace',8,6,'across')
 
+players={1: [0, 'uasaioe'], 2: [0, 'tzretpu']}
+#for key, value in players.items():
+#    print(value[1])
+
+players={1: [0, 'aiofoea'], 2: [0, 'stragda']}
+a=2
+p=2
+for key in players:
+    if key==p:
+        print(players[key][1])
+        players[key][1]='test'
+
+#change score
+
+print(players[key][1])
+print(players[key][1][:2])
+                                
+players[key][1]=players[key][1][:1]+players[key][1][(1+1):]
+print(players[key][1])

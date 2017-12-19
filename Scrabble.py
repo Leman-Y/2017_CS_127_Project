@@ -201,7 +201,8 @@ def add_word_across(board,word, row, col):
         if board[r][c+count]=='_': #If square is _
             sumofscore+=score(word[count])
             
-        board[r][c+count]=word[count]    
+        board[r][c+count]=word[count]
+        
     print_board(board)
         
 def add_word_down(board,word,row,col):
@@ -336,10 +337,13 @@ def placeword(word,row,pos,align):
     Output: Board itself with word on it, and your total points and how many points your word scored
     '''
     global board
+    global players
     if align=='across':
         add_word_across(board,word,row,pos)
     if align=='down':
         add_word_down(board,word,row,pos)
+        
+    
     
 def does_contains(w, hand):
     for let in w:
@@ -352,6 +356,7 @@ def does_contains(w, hand):
 
 def main():
     alpha="abcdefghijklmnopqrstuvwxyz#"
+    
     ask_player()
     order_players()
     hand_out()
@@ -359,7 +364,11 @@ def main():
     listofletters=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o']
     listofcolumns=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
     global board
+<<<<<<< HEAD
     global turns_taken
+=======
+    global basket_of_letters
+>>>>>>> 9cd288dcc3ee5f84fceed60e56953946a7393a69
     while(letter_count > 0 or len(not_empty) > 0): # condition to keep playing
         for p in order_of_the_players:
             if (p in not_empty): # can exchange, place, pass
@@ -411,8 +420,21 @@ def main():
                                     align = ""
                             else:
                                 align = ""
-                        pos=alpha.index(column)
-                        placeword(entered_word,row, pos, align)
+                        pos=(alpha.index(column)+1)                     #Index of the column in alpha (abcd...)
+                        placeword(entered_word,row, pos, align)            #Call function placeword to put word on board
+                        
+                        for key in players:
+                            if key==p:
+                                for letter in entered_word:
+                                    print(letter)
+                                    removeletter=players[key][1].replace(letter, "")
+                                    index=players[key][1].index(letter)              #Index of letter in string
+                                    players[key][1]=players[key][1][:index]+players[key][1][(index+1):]   #Remove that letter from the string
+                                    
+                                    players[key][1]=players[key][1]+randomtile(basket_of_letters)      #Adds random tile back to the hand
+                                    
+                                    #s = s[:pos] + s[(pos+1):]  Example to remove letter from string                                
+                        
                         break                     
             elif (word == "exchange"):
                 chose = "" # asks for chosen
