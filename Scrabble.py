@@ -180,9 +180,10 @@ def add_word_across(board,word,r,c):
     '''
     scoreofword=score(word)
     sumofscore=0
+    print(word,r,c)
     
     for count, letter in enumerate(word): #Tell me the position of each letter in the word & the letter itself
-        if board[r][c+count]=='T': #3*score of word
+        if board[r][c+count]=='T': #3*score of word      
             sumofscore+=score(word)*3
             
         if board[r][c+count]=='D':#2*score of word
@@ -198,6 +199,11 @@ def add_word_across(board,word,r,c):
             sumofscore+=score(word[count])
             
         board[r][c+count]=word[count]
+        
+    print(sumofscore)
+    
+    #print(score(word))
+    print(print_board(board))
         
 def add_word_down(board,word,r,c):
     scoreofword=score(word)
@@ -224,6 +230,11 @@ def add_word_down(board,word,r,c):
             sumofscore+=score(word[count])
         board[r+count][c]=word[count]
         
+    print(sumofscore)
+    
+    #print(score(word))
+    print(print_board(board))
+    
 def check_hands(): # checks hands of each player
     global players
     not_empty = []
@@ -322,16 +333,16 @@ def exchange(tile, player_num):
     
     return newtile
 
-def placeword(word,row,column,position):
+def placeword(word,row,pos,align):
     '''
     Input: A word that you want on the board
     Output: Board itself with word on it, and your total points and how many points your word scored
     '''
     global board
-    if position=='across':
-        add_word_across(board,word,row,column)
-    if position=='down':
-        add_word_down(board,word,row,column)
+    if align=='across':
+        add_word_across(board,word,row,pos)
+    if align=='down':
+        add_word_down(board,word,row,pos)
     
 def does_contains(w, hand):
     for let in w:
@@ -341,6 +352,8 @@ def does_contains(w, hand):
         return True
     else:
         return False
+
+board=make_scrabble_board() 
 
 def main():
     alpha="abcdefghijklmnopqrstuvwxyz#"
@@ -414,6 +427,9 @@ def main():
                     
                         pos=alpha.index(column)
                         print(pos)
+                        
+                        placeword(entered_word,row, pos, align)
+                        
                         #placeword(entered_word, row, column, align)
                         
                         '''
@@ -454,7 +470,7 @@ def main():
                     print("\n")
 
 
-board=make_scrabble_board()                     #Scrabble board
+                    #Scrabble board
 print_board(board)
 main()
 
