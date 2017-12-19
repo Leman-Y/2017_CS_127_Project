@@ -397,7 +397,7 @@ def main():
                     print("Player " + str(p) + ": The current letters you have in your hand are: " + turn[1])
                     word = input("What do you want to do? You can place a word, exchange, or pass? (type 'place', 'exchange', 'pass') \n BE CAREFUL OF WHAT YOU CHOSE OR YOU CANNOT UNCHOOSE IT, IF YOU DON'T KNOW HOW TO SPELL YOU'RE TURN GETS SKIPPED ") 
                     word = word.lower()
-                    while (word == "place"):
+                    if (word == "place"):
                         entered_word = ""
                         row = ""
                         num_row = 0
@@ -456,32 +456,32 @@ def main():
                                     #s = s[:pos] + s[(pos+1):]  Example to remove letter from string                                
                         
                         break                     
-            elif (word == "exchange"):
-                chose = "" # asks for chosen
-                while (len(chose) <= 0):
-                    chose = input("Player " + str(p) + ": What tile do you want to exchange? ")
-                    chose.lower()
-                    if (chose in turn[1]):
-                        newtile = exchange(chose, p)
-                        print("Player " + str(p) + ": you got a letter: " + newtile)
-                        print("Player " + str(p) + ": your hand is: " + turn[1])
-                        another = ""
-                        while (len(another) <= 0):
-                            another = input("Is there another word you want to exchange? (Enter 'yes' or 'no') ")
-                            another.lower()
-                            if (another =="yes"):
-                                chose = ""
-                            elif (another == "no"):
-                                pass
-                            else:
+                    elif (word == "exchange"):
+                        chose = "" # asks for chosen
+                        while (len(chose) <= 0):
+                            chose = input("Player " + str(p) + ": What tile do you want to exchange? ")
+                            chose.lower()
+                            if (chose in turn[1]):
+                                newtile = exchange(chose, p)
+                                print("Player " + str(p) + ": you got a letter: " + newtile)
+                                print("Player " + str(p) + ": your hand is: " + turn[1])
                                 another = ""
+                                while (len(another) <= 0):
+                                    another = input("Is there another word you want to exchange? (Enter 'yes' or 'no') ")
+                                    another.lower()
+                                    if (another =="yes"):
+                                        chose = ""
+                                    elif (another == "no"):
+                                        pass
+                                    else:
+                                        another = ""
+                            else:
+                                chose = ""
+                                print("That is not a valid letter!")
+                    elif (word == "pass"):
+                        pass
                     else:
-                        chose = ""
-                        print("That is not a valid letter!")
-            elif (word == "pass"):
-                pass
-            else:
-                word = ""
+                        word = ""
             print("\n")
     print("The game is finished!")
     scores = [] 
