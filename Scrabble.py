@@ -410,8 +410,11 @@ def main():
                             else:
                                 align = ""
                         print(entered_word, row, column, align)
+                    
                         pos=alpha.index(column)
+                        print(pos)
                         #placeword(entered_word, row, column, align)
+                        
                         '''
                         if type(c)==int is False:
                             x=listofletters.index(c)
