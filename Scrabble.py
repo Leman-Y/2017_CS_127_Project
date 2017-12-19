@@ -199,7 +199,8 @@ def add_word_across(board,word, row, col):
         if board[r][c+count]=='_': #If square is _
             sumofscore+=score(word[count])
             
-        board[r][c+count]=word[count]    
+        board[r][c+count]=word[count]
+        
     print_board(board)
         
 def add_word_down(board,word,row,col):
@@ -409,8 +410,9 @@ def main():
                                     align = ""
                             else:
                                 align = ""
-                        pos=alpha.index(column)
-                        placeword(entered_word,row, pos, align)
+                        pos=alpha.index(column)                     #Index of the column in alpha (abcd...)
+                        placeword(entered_word,row, pos, align)            #Call function placeword to put word on board
+                        
                         break                     
             elif (word == "exchange"):
                 chose = "" # asks for chosen
