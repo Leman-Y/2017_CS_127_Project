@@ -34,6 +34,8 @@ letter_count = 98
 alpha = "abcdefghijklmnopqrstuvwxyz"
 order_of_the_players = []
 dict = enchant.Dict("en_US")
+word_placed = False
+turns_taken = 0
 
 
 letter_score = {"aeioulnrst":"1", 
@@ -357,11 +359,13 @@ def main():
     listofletters=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o']
     listofcolumns=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
     global board
+    global turns_taken
     while(letter_count > 0 or len(not_empty) > 0): # condition to keep playing
         for p in order_of_the_players:
             if (p in not_empty): # can exchange, place, pass
                 turn = players[p]
                 word = ""
+                turns_taken += 1
                 if (len(word) <= 0):
                     print("Player " + str(p) + ": The current letters you have in your hand are: " + turn[1])
                     word = input("What do you want to do? You can place a word, exchange, or pass? (type 'place', 'exchange', 'pass') \n BE CAREFUL OF WHAT YOU CHOSE OR YOU CANNOT UNCHOOSE IT, IF YOU DON'T KNOW HOW TO SPELL YOU'RE TURN GETS SKIPPED ") 
@@ -437,19 +441,18 @@ def main():
             else:
                 word = ""
             print("\n")
-
+    print("The game is finished!")
+    scores = [] 
+    for key, value in players.items():
+        scores.append(value[1])
+    max = scores[0]
+    max_p = 0
+    for i in range(len(scores)):
+        if (scores[i] > max):
+            max = scores[i]
+            max_p = i
+    print("The winner is: Player " + str(i) + "!")
 
 board=make_scrabble_board()
 print_board(board)
 main()
-
-
-'''
-According to the official rules of Scrabble, the game ends when a player uses all of his tiles and no more tiles are available to draw.
-That player earns the sum of the points on all of the tiles remaining on all of his opponents' racks.
-The other players subtract from their point total the sum of the points on the tiles remaining on their individual rack.
-
-A different rule is used in National Scrabble Association tournaments and club play.
-There, the player who ends the game earns double the points on all of the tiles remaining on all of his opponents' racks.
-The other players subtract nothing from their total.
-'''
