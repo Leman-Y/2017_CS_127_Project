@@ -173,13 +173,19 @@ def score(w):
       sum1+=10
   return sum1
 
+<<<<<<< HEAD
 def add_word_across(board,word,int(i),int(c)):
+=======
+def add_word_across(board,word, row, col):
+>>>>>>> cd371749a69e30a2ec75570cd4cb3ad315d2e185
     '''
     Input: board, word, r, c
     Output: board with word on it
     '''
     scoreofword=score(word)
     sumofscore=0
+    r = int(row)
+    c = int(col)
     print(word,r,c)
     
     for count, letter in enumerate(word): #Tell me the position of each letter in the word & the letter itself
@@ -198,17 +204,15 @@ def add_word_across(board,word,int(i),int(c)):
         if board[r][c+count]=='_': #If square is _
             sumofscore+=score(word[count])
             
-        board[r][c+count]=word[count]
-        
-    print(sumofscore)
-    
+        board[r][c+count]=word[count]    
     #print(score(word))
     print(print_board(board))
         
-def add_word_down(board,word,int(r),int(c)):
+def add_word_down(board,word,row,col):
     scoreofword=score(word)
     sumofscore=0
-    
+    r = int(row)
+    c = int(col)
     '''
     Input: board, word, r, c
     Output: board with word on it
@@ -228,10 +232,7 @@ def add_word_down(board,word,int(r),int(c)):
             
         if board[r+count][c]=='_': #If square is _
             sumofscore+=score(word[count])
-        board[r+count][c]=word[count]
-        
-    print(sumofscore)
-    
+        board[r+count][c]=word[count]    
     #print(score(word))
     print(print_board(board))
     
@@ -415,24 +416,9 @@ def main():
                                     align = ""
                             else:
                                 align = ""
-                        print(entered_word, row, column, align)
-                    
                         pos=alpha.index(column)
-                        print(pos)
-                        
                         placeword(entered_word,row, pos, align)
-                        
-                        #placeword(entered_word, row, column, align)
-                        
-                        '''
-                        if type(c)==int is False:
-                            x=listofletters.index(c)
-                            d=listofcolumns[x]
-                            placeword(x,r,d,v)
-                        '''
-    
-                        
-                        
+                        break                     
             elif (word == "exchange"):
                 chose = "" # asks for chosen
                 while (len(chose) <= 0):
