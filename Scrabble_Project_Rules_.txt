@@ -22,7 +22,6 @@ Rules of Scrabble:
 
 
 In the scrabble bag:
-* 2 blank tiles (scoring 0 points)
 * 1 point: E ×12, 
 A, I ×9, 
 O ×8, 
