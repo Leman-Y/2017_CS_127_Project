@@ -15,8 +15,8 @@
 ##### Disclaimer:
 ###### Due to time restraint and complexity of the scrabble game, Leman and I were able to finish roughly 80% of the game. Thus we transformed it into our own free style version of the game, where the constraint of the domino-like prerequisite to tile placing does not exist. And to make the game more fair when ending, we did not implement the usage of adding 50 points if the player finishes with no tiles in their hand. This is because PyEnchant accepts. single letter characters as words.
 
-#### How did we extend the project?:
-#####  We used an external library called PyEnchant to check if the word exists in the English dictionary. We used global variables, which was not covered in class. We also added numbers and letters to the edges of the scrabble board to make it easier for the player to place a word.
+##### How did we extend the project?:
+######  We used an external library called PyEnchant to check if the word exists in the English dictionary. We used global variables, which was not covered in class. We also added numbers and letters to the edges of the scrabble board to make it easier for the player to place a word.
 
 
 
