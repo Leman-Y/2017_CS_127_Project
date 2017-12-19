@@ -198,4 +198,6 @@ print(players[key][1])
 print(players[key][1][:2])
                                 
 players[key][1]=players[key][1][:1]+players[key][1][(1+1):]
-print(players[key][1])
+print(players)
+print(players[key])
+print(players[key][0])

@@ -172,12 +172,15 @@ def score(w):
   return sum1
 
 
-def add_word_across(board,word, row, col):
+def add_word_across(board,word, row, col,p):
 
     '''
     Input: board, word, r, c
     Output: board with word on it
     '''
+    
+    global players                                            #Time to change the score
+    
     scoreofword=score(word)
     sumofscore=0
     r = int(row)
@@ -201,13 +204,23 @@ def add_word_across(board,word, row, col):
             
         board[r][c+count]=word[count]
         
+    #print(p)
+    for key in players:
+        if key==p:
+            (players[key][0])=players[key][0]+sumofscore
+    
+    #print(players)
+    
     print_board(board)
         
-def add_word_down(board,word,row,col):
+def add_word_down(board,word,row,col,p):
     scoreofword=score(word)
     sumofscore=0
     r = int(row)
     c = int(col)
+    
+    global players                 #Time to change the score
+    
     '''
     Input: board, word, r, c
     Output: board with word on it
@@ -229,6 +242,11 @@ def add_word_down(board,word,row,col):
             sumofscore+=score(word[count])
         board[r+count][c]=word[count]    
     #print(score(word))
+        
+    for key in players:
+        if key==p:
+            (players[key][0])=players[key][0]+sumofscore
+        
     print_board(board)
     
 def check_hands(): # checks hands of each player
@@ -329,7 +347,7 @@ def exchange(tile, player_num):
     
     return newtile
 
-def placeword(word,row,pos,align):
+def placeword(word,row,pos,align,p):
     '''
     Input: A word that you want on the board
     Output: Board itself with word on it, and your total points and how many points your word scored
@@ -337,9 +355,9 @@ def placeword(word,row,pos,align):
     global board
     global players
     if align=='across':
-        add_word_across(board,word,row,pos)
+        add_word_across(board,word,row,pos,p)
     if align=='down':
-        add_word_down(board,word,row,pos)
+        add_word_down(board,word,row,pos,p)
         
     
     
@@ -414,12 +432,14 @@ def main():
                             else:
                                 align = ""
                         pos=(alpha.index(column)+1)                     #Index of the column in alpha (abcd...)
-                        placeword(entered_word,row, pos, align)            #Call function placeword to put word on board
+                        placeword(entered_word,row, pos, align,p)            #Call function placeword to put word on board
                         
-                        for key in players:
+                        #p is the whoever is the player's turn
+                        
+                        for key in players:                                      #Remove word from hand then adds back new tiles
                             if key==p:
                                 for letter in entered_word:
-                                    print(letter)
+                                    #print(letter)
                                     removeletter=players[key][1].replace(letter, "")
                                     index=players[key][1].index(letter)              #Index of letter in string
                                     players[key][1]=players[key][1][:index]+players[key][1][(index+1):]   #Remove that letter from the string
