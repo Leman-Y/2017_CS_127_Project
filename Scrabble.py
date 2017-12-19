@@ -84,6 +84,8 @@ def randomtile(basket_of_letters):
     Output:
     -Random character tile
     '''
+    global letter_count
+    
     newbasket='' #Empty string
     for i in range(len(basket_of_letters)-1):  #Index of each position 
         if type(basket_of_letters[i])==int:    #If the type of value is a int
@@ -95,6 +97,9 @@ def randomtile(basket_of_letters):
     newtile=random.choice(newbasket)                    #Randomly choose a character from the newbasket
     index=basket_of_letters.index(newtile)              #Index of newtile in original basket 
     basket_of_letters[index+1]=basket_of_letters[index+1]-1       #Change the value of how many of the random letters there are -1.
+    
+    letter_count=letter_count-1                              #Subtract 1 tile from the letter_count
+    
     return newtile  #Return a random tile
     
 
@@ -150,6 +155,8 @@ def score(w):
   '''
   sum1=0
   for ch in w:
+    if ch=='#':
+        sum1+=0
     if ch.lower() in 'aeioulnrst':
       sum1+=1
     if ch.lower() in 'dg':
@@ -301,8 +308,10 @@ def exchange(tile, player_num):
     Input: Tile you want to exchange
     Output: Random tile
     '''
+    global letter_count
     index=basket_of_letters.index(tile)              #Index of player's tile in basket_of_letters 
     basket_of_letters[index+1]=basket_of_letters[index+1]+1       #Change the value of how many of the random letters there are -1.
+    letter_count=letter_count+1                                        #Since you are adding a letter back to the bad so add one
     p = players[player_num]
     oldstr = p[1]
     pos = oldstr.index(tile)
@@ -310,6 +319,7 @@ def exchange(tile, player_num):
     p[1] = newstr
     newtile = randomtile(basket_of_letters)
     p[1] = p[1] + newtile                #Return a new random tile to the player
+    
     return newtile
 
 def placeword(word,row,column,position):
