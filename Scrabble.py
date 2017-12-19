@@ -30,13 +30,13 @@ What we need to do:
 
 players = {}
 num_p = 0
-letter_count = 100
-alpha = "abcdefghijklmnopqrstuvwxyz#"
+letter_count = 98
+alpha = "abcdefghijklmnopqrstuvwxyz"
 order_of_the_players = []
+dict = enchant.Dict("en_US")
 
 
-letter_score = {"#" : "0",
-                "aeioulnrst":"1", 
+letter_score = {"aeioulnrst":"1", 
                 "dg":"2", 
                 "bcmp":"3", 
                 "fhvwy":"4",
@@ -49,7 +49,7 @@ basket_of_letters = ["a", 9, "b", 2, "c", 2, "d", 4, "e", 12,
                     "k", 1, "l", 4, "m", 2, "n", 6, "o", 8,
                     "p", 2, "q", 1, "r", 6, "s", 4, "t", 6, 
                     "u", 4, "v", 2, "w", 2, "x", 1, "y", 2, 
-                    "z", 1, "#", 2 ]
+                    "z", 1]
 # '#'=Blank
 TRIPLE_WORD_SCORE = ((0,0), (7, 0), (14,0), (0, 7), (14, 7), (0, 14), (7, 14), (14,14))
 DOUBLE_WORD_SCORE = ((1,1), (2,2), (3,3), (4,4), (1, 13), (2, 12), (3, 11), (4, 10), (13, 1), (12, 2), (11, 3), (10, 4), (13,13), (12, 12), (11,11), (10,10), (7,7))
@@ -245,16 +245,16 @@ def order_players(): #order the players
     list_of_first_letters = []
     listofletters=[] #Empty list for letters
     letters_drawn = []
-    go = True 
     for key, value in players.items():
         go = True
         while (go):
             first_let = randomtile(basket_of_letters)
             if (first_let in letters_drawn): # checks if letter has been drawn yet
                 index = basket_of_letters.index(first_let)+1
+                print(first_let)
                 print(basket_of_letters.index(first_let))
                 print("hello")
-                basket_of_letters[index+1] = str(basket_of_letters[index+1]+1) #re add the count in basket_of letters_
+                basket_of_letters[index+1] += 1 #re add the count in basket_of letters_
             else:
                 letters_drawn.append(first_let)
                 list_of_first_letters.append(first_let) # adds drawn letter
@@ -333,6 +333,15 @@ def placeword(word,row,column,position):
     if position=='down':
         add_word_down(board,word,row,column)
     
+def does_contains(w, hand):
+    for let in w:
+        if (let not in hand):
+            return False
+    if (dict.check(w)):
+        return True
+    else:
+        return False
+
 def main():
     alpha="abcdefghijklmnopqrstuvwxyz#"
     ask_player()
@@ -352,21 +361,57 @@ def main():
                     word = input("What do you want to do? You can place a word, exchange, or pass? (type 'place', 'exchange', 'pass') ") 
                     word = word.lower()
                     if (word == "place"):
-                        print_board(board)
-                        print("Player " + str(p) + ": The current letters you have in your hand are: " + turn[1])
-                        print('What word do you want to place?')
-                        x=input() #Word
-                        print('Which row do you want it?')
-                        r=input()
-                        print('Which column do u want it?')
-                        c=input()
-                        print('Do you want the word across or down?')
-                        v=input()
-                        
-                        print(c)
-                        column=alpha.index(c)
-                        print(column)
-                        placeword(x,r,((alpha.index(c))+1),v)
+                        entered_word = ""
+                        row = ""
+                        num_row = 0
+                        column = ""
+                        align = ""
+                        while (len(entered_word) <= 0): 
+                            entered_word = input("What word do you want to place? If you want to stop enter 'pass' ")
+                            if (does_contains(entered_word, turn[1])):    
+                                if (isinstance(entered_word, str)):
+                                    entered_word.lower()
+                                    if (entered_word == 'pass'):
+                                        pass
+                                else:
+                                    entered_word = ""
+                            else:
+                                print("You can't make this word")
+                                entered_word = ""
+                        while (num_row <= 0):
+                            row = input("Which row number do you want it? If you want to stop enter 'pass' ")
+                            if (isinstance(row, str)):
+                                if (row == 'pass'):
+                                    pass
+                                elif (int(row) >= 0 or int(row) <= 16):
+                                    num_row = int(row)
+                                else:
+                                    num_row = 0
+                        while (len(column) <= 0):
+                            column = input("Which letter column do u want it? If you want to stop enter 'pass' ")
+                            if (isinstance(column, str)):
+                                if (len(column) == 1):
+                                    column.lower()
+                                elif (column == 'pass'):
+                                    pass
+                                else:
+                                    column = ""
+                            else:
+                                column = ""     
+                        while (len(align) <= 0):
+                            align = input("Do you want the word across or down? If you want to stop enter 'pass' ")
+                            if (isinstance(align, str)):
+                                print('hi')
+                                align.lower()
+                                if (align != 'across' and align != 'down'):
+                                    align = ""
+                                elif (align == 'pass'):
+                                    pass
+                            else:
+                                align = ""
+                        print(entered_word, row, column, align)
+                        pos=alpha.index(column)
+                        #placeword(entered_word, row, column, align)
                         '''
                         if type(c)==int is False:
                             x=listofletters.index(c)
@@ -380,9 +425,21 @@ def main():
                         chose = "" # asks for chosen
                         while (len(chose) <= 0):
                             chose = input("Player " + str(p) + ": What tile do you want to exchange? ")
+                            chose.lower()
                             if (chose in turn[1]):
                                 newtile = exchange(chose, p)
                                 print("Player " + str(p) + ": you got a letter: " + newtile)
+                                print("Player " + str(p) + ": your hand is: " + turn[1])
+                                another = ""
+                                while (len(another) <= 0):
+                                    another = input("Is there another word you want to exchange? (Enter 'yes' or 'no') ")
+                                    another.lower()
+                                    if (another =="yes"):
+                                        chose = ""
+                                    elif (another == "no"):
+                                        pass
+                                    else:
+                                        another = ""
                             else:
                                 chose = ""
                                 print("That is not a valid letter!")
