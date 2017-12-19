@@ -382,11 +382,11 @@ def main():
     listofletters=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o']
     listofcolumns=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
     global board
-<<<<<<< HEAD
+
     global turns_taken
-=======
+
     global basket_of_letters
->>>>>>> 9cd288dcc3ee5f84fceed60e56953946a7393a69
+
     while(letter_count > 0 or len(not_empty) > 0): # condition to keep playing
         for p in order_of_the_players:
             if (p in not_empty): # can exchange, place, pass
