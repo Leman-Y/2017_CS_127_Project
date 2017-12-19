@@ -240,7 +240,7 @@ def check_hands(): # checks hands of each player
 
 def hand_out(): # hands out tiles initial hand 
     for key, value in players.items():
-        i = 6
+        i = 7
         while (i > 0):
             tile = randomtile(basket_of_letters)
             value[1] += tile
@@ -348,8 +348,6 @@ def does_contains(w, hand):
     else:
         return False
 
-board=make_scrabble_board() 
-
 def main():
     alpha="abcdefghijklmnopqrstuvwxyz#"
     ask_player()
@@ -366,7 +364,7 @@ def main():
                 word = ""
                 if (len(word) <= 0):
                     print("Player " + str(p) + ": The current letters you have in your hand are: " + turn[1])
-                    word = input("What do you want to do? You can place a word, exchange, or pass? (type 'place', 'exchange', 'pass') BE CAREFUL OF WHAT YOU CHOSE OR YOU CANNOT UNCHOOSE IT ") 
+                    word = input("What do you want to do? You can place a word, exchange, or pass? (type 'place', 'exchange', 'pass') \n BE CAREFUL OF WHAT YOU CHOSE OR YOU CANNOT UNCHOOSE IT, IF YOU DON'T KNOW HOW TO SPELL YOU'RE TURN GETS SKIPPED ") 
                     word = word.lower()
                     while (word == "place"):
                         entered_word = ""
@@ -441,7 +439,7 @@ def main():
             print("\n")
 
 
-                    #Scrabble board
+board=make_scrabble_board()
 print_board(board)
 main()
 
