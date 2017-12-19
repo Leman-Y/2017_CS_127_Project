@@ -173,7 +173,7 @@ def score(w):
       sum1+=10
   return sum1
 
-def add_word_across(board,word,r,c):
+def add_word_across(board,word,int(r),int(c)):
     '''
     Input: board, word, r, c
     Output: board with word on it
@@ -205,7 +205,7 @@ def add_word_across(board,word,r,c):
     #print(score(word))
     print(print_board(board))
         
-def add_word_down(board,word,r,c):
+def add_word_down(board,word,int(r),int(c)):
     scoreofword=score(word)
     sumofscore=0
     
