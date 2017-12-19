@@ -34,6 +34,7 @@ letter_count = 100
 alpha = "abcdefghijklmnopqrstuvwxyz#"
 order_of_the_players = []
 
+
 letter_score = {"#" : "0",
                 "aeioulnrst":"1", 
                 "dg":"2", 
@@ -194,6 +195,7 @@ def add_word_across(board,word,r,c):
 def add_word_down(board,word,r,c):
     scoreofword=score(word)
     sumofscore=0
+    
     '''
     Input: board, word, r, c
     Output: board with word on it
@@ -295,7 +297,7 @@ def closest_to_a(listofletters,list_of_first_letters):
 
 def exchange(tile, player_num):
     '''
-    Exchanges a player's player
+    Exchanges a players player
     Input: Tile you want to exchange
     Output: Random tile
     '''
@@ -309,13 +311,27 @@ def exchange(tile, player_num):
     newtile = randomtile(basket_of_letters)
     p[1] = p[1] + newtile                #Return a new random tile to the player
     return newtile
-        
 
+def placeword(word,row,column,position):
+    '''
+    Input: A word that you want on the board
+    Output: Board itself with word on it, and your total points and how many points your word scored
+    '''
+    global board
+    if position=='across':
+        add_word_across(board,word,row,column)
+    if position=='down':
+        add_word_down(board,word,row,column)
+    
 def main():
+    alpha="abcdefghijklmnopqrstuvwxyz#"
     ask_player()
     order_players()
     hand_out()
     not_empty = check_hands()
+    listofletters=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o']
+    listofcolumns=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+    global board
     while(letter_count > 0 or len(not_empty) > 0): # condition to keep playing
         for p in order_of_the_players:
             if (p in not_empty): # can exchange, place, pass
@@ -326,7 +342,30 @@ def main():
                     word = input("What do you want to do? You can place a word, exchange, or pass? (type 'place', 'exchange', 'pass') ") 
                     word = word.lower()
                     if (word == "place"):
-                        print("place")
+                        print_board(board)
+                        print("Player " + str(p) + ": The current letters you have in your hand are: " + turn[1])
+                        print('What word do you want to place?')
+                        x=input() #Word
+                        print('Which row do you want it?')
+                        r=input()
+                        print('Which column do u want it?')
+                        c=input()
+                        print('Do you want the word across or down?')
+                        v=input()
+                        
+                        print(c)
+                        column=alpha.index(c)
+                        print(column)
+                        placeword(x,r,((alpha.index(c))+1),v)
+                        '''
+                        if type(c)==int is False:
+                            x=listofletters.index(c)
+                            d=listofcolumns[x]
+                            placeword(x,r,d,v)
+                        '''
+    
+                        
+                        
                     elif (word == "exchange"):
                         chose = "" # asks for chosen
                         while (len(chose) <= 0):
@@ -342,8 +381,10 @@ def main():
                     else:
                         word = ""
                     print("\n")
-                    
-print_board(make_scrabble_board())
+
+
+board=make_scrabble_board()                     #Scrabble board
+print_board(board)
 main()
 
 
